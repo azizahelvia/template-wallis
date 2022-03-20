@@ -113,6 +113,16 @@
                 <i class="fa-solid fa-arrow-up-from-bracket"></i>
                 <span>Topup Saldo</span></a>
         </li>
+        <li class="nav-item {{ $page == "Belanja" ? "active" : "" }}">
+            <a class="nav-link" href="{{ route('belanjasiswa.index') }}">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <span>Belanja</span></a>
+        </li>
+        <li class="nav-item {{ $page == "Riwayat Transaksi Siswa" ? "active" : "" }}">
+            <a class="nav-link" href="{{ route('riwayatsiswa.index') }}">
+                <i class="fa-solid fa-clock-rotate-left"></i>
+                <span>Riwayat Transaksi</span></a>
+        </li>
         @endif
     </ul>
     <!-- End of Sidebar -->

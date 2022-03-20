@@ -4,6 +4,7 @@ use App\Http\Controllers\Web\CasheerMerchantController;
 use App\Http\Controllers\Web\DataTransactionController;
 use App\Http\Controllers\Web\DataUserController;
 use App\Http\Controllers\Web\EntryInventoryController;
+use App\Http\Controllers\Web\ShoppingStudentController;
 use App\Http\Controllers\Web\TopupBalanceController;
 use App\Http\Controllers\Web\TopupStudentController;
 use App\Http\Controllers\Web\TransactionHistoryController;
@@ -60,6 +61,12 @@ Route::middleware('auth')->group(function () {
     // Siswa
     Route::prefix('topup_saldo')->group(function() {
         Route::get('/', [TopupStudentController::class, 'index'])->name('topupsaldo.index');
+    });
+    Route::prefix('belanja')->group(function() {
+        Route::get('/', [ShoppingStudentController::class, 'index'])->name('belanjasiswa.index');
+    });
+    Route::prefix('riwayat_transaksi_siswa')->group(function() {
+        Route::get('/', [ShoppingStudentController::class, 'history'])->name('riwayatsiswa.index');
     });
 });
 
