@@ -1,11 +1,17 @@
 @extends('layouts.app')
 
-<?php 
+<?php
     $page = "Pengajuan Saldo"
 ?>
 
 @section('content')
 <div class="container-fluid">
+
+    @if (session('status'))
+        <div class="alert alert-success" role="alert">
+            {{ session('status') }}
+        </div>
+    @endif
 
     <!-- Page Heading -->
     <h1 class="h3 mb-2 text-gray-800">Pengajuan Topup Saldo</h1>
@@ -27,18 +33,22 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($applybalance as $apply)
+                        @foreach ($balances as $balance)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $apply->user->name }}</td>
-                                <td>{{ $apply->amount }}</td>
+                                <td>{{ $balance->user->name }}</td>
+                                <td>@currency($balance->amount)</td>
                                 <td>
-                                    <a href="#" class="btn btn-success btn-sm mr-2" title="Setuju">
+                                    <a href="{{ route('topupbalance.approved', ["transaction_id" => $balance->id]) }}"
+                                        class="btn btn-success btn-sm mr-2" title="Setuju">
                                         <i class="fa-solid fa-check"></i>
                                     </a>
-                                    <a href="#" class="btn btn-danger btn-sm" title="Tolak">
+                                    <input type="hidden" name="status" value="3">
+                                    <a href="{{ route('topupbalance.rejected', ["transaction_id" => $balance->id]) }}"
+                                        class="btn btn-danger btn-sm" title="Tolak">
                                         <i class="fa-solid fa-xmark"></i>
                                     </a>
+                                    <input type="hidden" name="status" value="">
                                 </td>
                             </tr>
                         @endforeach

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-<?php 
+<?php
     $page = "Data User";
 ?>
 
@@ -24,7 +24,7 @@
             <h6 class="m-0 font-weight-bold text-primary">Data User</h6>
             <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
                 data-toggle="modal" data-target="#adduser">
-                <i class="fas fa-plus fa-sm text-white-50"></i> 
+                <i class="fas fa-plus fa-sm text-white-50"></i>
                 Tambah User
             </button>
 
@@ -35,13 +35,13 @@
                         <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLabel">Tambah User</h5>
                         </div>
-                        <form method="POST" action="#">
+                        <form method="POST" action="{{ route('datauser.add') }}">
                             @csrf
                             <div class="modal-body">
                                 <div class="form-group">
                                     <label>Nama</label>
                                     <input type="text" class="form-control @error('name') is-invalid @enderror" name="name">
-                                    
+
                                     @error('name')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -51,7 +51,7 @@
                                 <div class="form-group">
                                     <label>Email</label>
                                     <input type="email" class="form-control @error('email') is-invalid @enderror" name="email">
-    
+
                                     @error('email')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -61,12 +61,16 @@
                                 <div class="form-group">
                                     <label>Password</label>
                                     <input type="password" class="form-control @error('password') is-invalid @enderror" name="password">
-    
+
                                     @error('password')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                     @enderror
+                                </div>
+                                <div class="form-group">
+                                    <label>Konfirmasi Password</label>
+                                    <input type="password" class="form-control" name="password_confirmation">
                                 </div>
                                 <div class="form-group">
                                     <label>Role</label>
@@ -77,7 +81,7 @@
                                         <option value="3">Kantin</option>
                                         <option value="4">Siswa</option>
                                     </select>
-    
+
                                     @error('role_id')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -88,7 +92,7 @@
 
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                                <button type="button" class="btn btn-primary">Simpan</button>
+                                <button type="submit" class="btn btn-primary">Simpan</button>
                             </div>
                         </form>
                     </div>
@@ -119,7 +123,7 @@
                                 <td>{{ $user->role->name }}</td>
                                 <td>-</td>
                                 <td>
-                                    <button type="button" class="btn btn-warning btn-sm mr-2" 
+                                    <button type="button" class="btn btn-warning btn-sm mr-2"
                                         data-toggle="modal" data-target="#edit-{{ $user->id }}">
                                         <i class="fa-solid fa-pen-to-square"></i>
                                     </button>
@@ -131,7 +135,7 @@
                                                 <div class="modal-header">
                                                     <h5 class="modal-title" id="exampleModalLabel">Edit User {{ $user->name }}</h5>
                                                 </div>
-                                                <form method="POST" action="#">
+                                                <form method="POST" action="{{ route('datauser.edit', $user->id) }}">
                                                     @method("put")
                                                     @csrf
                                                     <div class="modal-body">
@@ -165,7 +169,7 @@
 
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                                                        <button type="button" class="btn btn-primary">Simpan</button>
+                                                        <button type="submit" class="btn btn-primary">Simpan</button>
                                                     </div>
                                                 </form>
                                             </div>
@@ -173,7 +177,7 @@
                                     </div>
                                     <!-- End of Modal Edit -->
 
-                                    <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" 
+                                    <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
                                         data-target="#delete-{{ $user->id }}" title="Hapus">
                                         <i class="fa-solid fa-trash"></i>
                                     </button>
@@ -191,7 +195,11 @@
 
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Tidak</button>
-                                                        <a type="submit" href="#" class="btn btn-danger">Hapus</a>
+                                                        <form action="{{ route('datauser.delete', $user->id) }}" method="post">
+                                                            @method('DELETE')
+                                                            @csrf
+                                                            <button type="submit" class="btn btn-danger">Hapus</button>
+                                                        </form>
                                                     </div>
                                                 </form>
                                             </div>

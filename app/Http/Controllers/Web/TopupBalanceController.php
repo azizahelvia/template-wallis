@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Models\Balance;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TopupBalanceController extends Controller
 {
@@ -15,8 +17,11 @@ class TopupBalanceController extends Controller
      */
     public function index()
     {
-        $applybalance = Transaction::paginate(10);
-        return view('pages.banks.pengajuan_saldo', compact('applybalance'));
+        $balances = Transaction::where("type", 1)
+                    ->where("status", 1)
+                    ->get();
+
+        return view('pages.banks.pengajuan_saldo', compact('balances'));
     }
 
     /**
@@ -29,59 +34,33 @@ class TopupBalanceController extends Controller
         return view('pages.banks.riwayat_pengajuan_saldo');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function approved($transaction_id)
     {
-        //
+        $transaction = Transaction::find($transaction_id);
+
+        $balances = Balance::where("user_id", $transaction->user_id)->first();
+
+        Balance::where("user_id", $transaction->user_id)->update([
+            "balance"  => $balances->balance + $transaction->amount
+        ]);
+
+        $transaction->update([
+            "status"    => 3
+        ]);
+
+        return redirect()->back()->with("status", "Menyetujui Topup Saldo!");
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function rejected($transaction_id)
     {
-        //
-    }
+        $transaction = Transaction::find($transaction_id);
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
+        $transaction->delete();
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
+        // $transaction->update([
+        //     "status" => 4
+        // ]);
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        return redirect()->back()->with("status", "Menolak Topup Saldo!");
     }
 }

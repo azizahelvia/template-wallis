@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Models\Balance;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class DataUserController extends Controller
 {
@@ -37,7 +39,28 @@ class DataUserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'name'      => ['required', 'string', 'max:255'],
+            'email'     => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password'  => ['required', 'string', 'min:8', 'confirmed'],
+            'role_id'   => ['required', 'numeric']
+        ]);
+
+        $user = User::create([
+            "name"      => $request->name,
+            "email"     => $request->email,
+            "password"  => Hash::make($request->password),
+            "role_id"   => $request->role_id
+        ]);
+
+        if ($user->role_id === 4) {
+            Balance::create([
+                "user_id"   => $user->id,
+                "balance"   => 0,
+            ]);
+        }
+
+        return redirect()->back()->with("status", "Berhasil Menambahkan User!");
     }
 
     /**
@@ -71,7 +94,24 @@ class DataUserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        if ($request->password === null) {
+            User::find($id)->update([
+                "name"      => $request->name,
+                "email"     => $request->email,
+                "role_id"   => $request->role_id
+            ]);
+
+            return redirect()->back()->with("status", "Berhasil Mengedit User!");
+        }
+
+        User::find($id)->update([
+            "name"      => $request->name,
+            "email"     => $request->email,
+            "password"  => Hash::make($request->password),
+            "role_id"   => $request->role_id
+        ]);
+
+        return redirect()->back()->with("status", "Berhasil Mengedit User!");
     }
 
     /**
@@ -82,6 +122,12 @@ class DataUserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = User::find($id);
+
+        Balance::where("user_id", $user->id)->delete();
+
+        $user->delete();
+
+        return redirect()->back()->with("status", "Berhasil Menghapus User!");
     }
 }

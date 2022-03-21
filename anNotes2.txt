@@ -1,0 +1,9 @@
+Type =
+1. Topup
+2. Belanja
+
+Status =
+1. PENDING (Belum bayar)
+2. COMPLETED (Sudah Bayar)
+3. FINISHED (Disetujui)
+4. REJECTED (Ditolak)

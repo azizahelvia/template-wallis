@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-<?php 
+<?php
     $page = "Topup Saldo";
 ?>
 
@@ -8,21 +8,27 @@
     <!-- Begin Page Content -->
 <div class="container-fluid">
 
+    @if (session('status'))
+        <div class="alert alert-success" role="alert">
+            {{ session('status') }}
+        </div>
+    @endif
+
     <!-- Page Heading -->
-    <h1 class="h3 mb-2 text-gray-800">Topup Saldo</h1>
+    <h1 class="h3 mb-2 text-gray-800">Saldo Anda : @currency($balance_submissions->balance)</h1>
 
     <div class="card shadow mb-4">
         {{-- <div class="card-header py-3 d-sm-flex align-items-center justify-content-between mb-4">
             <h6 class="m-0 font-weight-bold text-primary">Topup Saldo</h6>
         </div> --}}
         <div class="card-body">
-            <form method="POST" action="#">
-                @method("put")
+            <form method="POST" action="{{ route('topupsaldo.add') }}">
                 @csrf
                 <h5 class="m-0 font-weight-bold text-primary">Isikan Topup Saldo</h5>
                 <div class="modal-body">
                     <div class="form-group">
                         <input type="number" class="form-control" name="amount" min="0" placeholder="Masukkan angka saldo">
+                        <input type="hidden" name="type" value="1">
                     </div>
                 </div>
                 <button type="submit" class="btn btn-success btn-block">Topup</button>

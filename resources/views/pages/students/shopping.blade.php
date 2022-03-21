@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-<?php 
+<?php
     $page = "Belanja";
 ?>
 
@@ -67,67 +67,7 @@
         <div class="row">
             <div class="col-md-4 mt-3">
                 <div class="card" style="width: 20rem;">
-                    <img src="{{ asset('img/nasi_goreng.jpeg') }}" class="card-img-top" alt="Nasi Goreng">
-                    <div class="card-body">
-                        <h5 class="card-title">Nasi Goreng</h5>
-                        <p class="card-text">Harga: Rp 15000</p>
-                    </div>
-                    <form method="POST" action="">
-                        @csrf
-                        <input type="number" style="width: 300px; margin: 0 10px;" name="jumlah" class="form-control" value="1">
-                        <input type="hidden" name="barang_id" value="1">
-                        <button class="btn btn-primary mt-3 mb-2 ml-2" type="submit">Tambah ke Keranjang</button>
-                    </form>
-                </div>
-            </div>
-            <div class="col-md-4 mt-3">
-                <div class="card" style="width: 20rem;">
-                    <img src="{{ asset('img/nasi_goreng.jpeg') }}" class="card-img-top" alt="Nasi Goreng">
-                    <div class="card-body">
-                        <h5 class="card-title">Nasi Goreng</h5>
-                        <p class="card-text">Harga: Rp 15000</p>
-                    </div>
-                    <form method="POST" action="">
-                        @csrf
-                        <input type="number" style="width: 300px; margin: 0 10px;" name="jumlah" class="form-control" value="1">
-                        <input type="hidden" name="barang_id" value="1">
-                        <button class="btn btn-primary mt-3 mb-2 ml-2" type="submit">Tambah ke Keranjang</button>
-                    </form>
-                </div>
-            </div>
-            <div class="col-md-4 mt-3">
-                <div class="card" style="width: 20rem;">
-                    <img src="{{ asset('img/nasi_goreng.jpeg') }}" class="card-img-top" alt="Nasi Goreng">
-                    <div class="card-body">
-                        <h5 class="card-title">Nasi Goreng</h5>
-                        <p class="card-text">Harga: Rp 15000</p>
-                    </div>
-                    <form method="POST" action="">
-                        @csrf
-                        <input type="number" style="width: 300px; margin: 0 10px;" name="jumlah" class="form-control" value="1">
-                        <input type="hidden" name="barang_id" value="1">
-                        <button class="btn btn-primary mt-3 mb-2 ml-2" type="submit">Tambah ke Keranjang</button>
-                    </form>
-                </div>
-            </div>
-            <div class="col-md-4 mt-3">
-                <div class="card" style="width: 20rem;">
-                    <img src="{{ asset('img/nasi_goreng.jpeg') }}" class="card-img-top" alt="Nasi Goreng">
-                    <div class="card-body">
-                        <h5 class="card-title">Nasi Goreng</h5>
-                        <p class="card-text">Harga: Rp 15000</p>
-                    </div>
-                    <form method="POST" action="">
-                        @csrf
-                        <input type="number" style="width: 300px; margin: 0 10px;" name="jumlah" class="form-control" value="1">
-                        <input type="hidden" name="barang_id" value="1">
-                        <button class="btn btn-primary mt-3 mb-2 ml-2" type="submit">Tambah ke Keranjang</button>
-                    </form>
-                </div>
-            </div>
-            <div class="col-md-4 mt-3">
-                <div class="card" style="width: 20rem;">
-                    <img src="{{ asset('img/nasi_goreng.jpeg') }}" class="card-img-top" alt="Nasi Goreng">
+                    <img src="{{ asset('img/food-illustration.jpg') }}" class="card-img-top" alt="Nasi Goreng">
                     <div class="card-body">
                         <h5 class="card-title">Nasi Goreng</h5>
                         <p class="card-text">Harga: Rp 15000</p>
