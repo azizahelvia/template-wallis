@@ -73,7 +73,11 @@ Route::middleware('auth')->group(function () {
     });
     Route::prefix('belanja')->group(function() {
         Route::get('/', [ShoppingStudentController::class, 'index'])->name('belanjasiswa.index');
+        Route::post('/add_cart/{id}', [ShoppingStudentController::class, 'addToCart'])->name('belanjasiswa.addcart');
+        Route::get('/checkout', [ShoppingStudentController::class, 'checkout'])->name('belanjasiswa.checkout');
+        Route::get('/pay', [ShoppingStudentController::class, 'pay'])->name('belanjasiswa.pay');
     });
+
     Route::prefix('riwayat_transaksi_siswa')->group(function() {
         Route::get('/', [ShoppingStudentController::class, 'history'])->name('riwayatsiswa.index');
     });

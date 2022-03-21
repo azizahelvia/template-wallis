@@ -3,6 +3,7 @@ Type =
 2. Belanja
 
 Status =
+0. CHECKOUT (Tambah Ke Keranjang)
 1. PENDING (Belum bayar)
 2. COMPLETED (Sudah Bayar)
 3. FINISHED (Disetujui)
