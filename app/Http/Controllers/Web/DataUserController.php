@@ -53,10 +53,10 @@ class DataUserController extends Controller
             "role_id"   => $request->role_id
         ]);
 
-        if ($user->role_id === 4) {
+        if ($user->role_id == 4) {
             Balance::create([
                 "user_id"   => $user->id,
-                "balance"   => 0,
+                "balance"   => 0
             ]);
         }
 
