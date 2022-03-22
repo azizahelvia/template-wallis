@@ -18,9 +18,6 @@
     <h1 class="h3 mb-2 text-gray-800">Saldo Anda : @currency($balance_submissions->balance)</h1>
 
     <div class="card shadow mb-4">
-        {{-- <div class="card-header py-3 d-sm-flex align-items-center justify-content-between mb-4">
-            <h6 class="m-0 font-weight-bold text-primary">Topup Saldo</h6>
-        </div> --}}
         <div class="card-body">
             <form method="POST" action="{{ route('topupsaldo.add') }}">
                 @csrf

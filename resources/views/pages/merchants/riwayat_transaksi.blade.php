@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 <?php
-    $page = "Riwayat Transaksi Siswa";
+    $page = "Riwayat Transaksi Kantin";
 ?>
 
 @section('content')
@@ -14,7 +14,7 @@
     @endif
 
     <!-- Page Heading -->
-    <h1 class="h3 mb-2 text-gray-800">Riwayat Transaksi {{ Auth::user()->name }}</h1>
+    <h1 class="h3 mb-2 text-gray-800">Riwayat Transaksi Kantin</h1>
 
     <!-- Table Transaction History -->
     <div class="card shadow mb-4">
@@ -27,9 +27,9 @@
                     <thead>
                         <tr>
                             <th>No.</th>
+                            <th>Nama</th>
                             <th>Invoice ID</th>
                             <th>Status</th>
-                            <th>Jenis Transaksi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -37,10 +37,11 @@
                             @if ($shop_by_invoice->status == 1 || $shop_by_invoice->status == 2 || $shop_by_invoice->status == 3 || $shop_by_invoice->status == 4)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $shop_by_invoice->user->name }}</td>
                                     <td>{{ $shop_by_invoice->invoice_id }}</td>
                                     <td>
                                         @if ($shop_by_invoice->status == 1)
-                                        BELUM BAYAR
+                                            BELUM BAYAR
 
                                         @elseif ($shop_by_invoice->status == 2)
                                             TUNGGGU KONFIRMASI
@@ -51,14 +52,6 @@
                                         @else
                                             DITOLAK
                                     @endif
-                                    </td>
-                                    <td>
-                                        @if ($shop_by_invoice->type == 1)
-                                            TOPUP
-
-                                            @elseif ($shop_by_invoice->type == 2)
-                                                BELANJA
-                                        @endif
                                     </td>
                                 </tr>
                             @endif

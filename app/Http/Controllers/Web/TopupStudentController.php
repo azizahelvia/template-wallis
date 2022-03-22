@@ -13,8 +13,6 @@ class TopupStudentController extends Controller
 {
     public function index()
     {
-        // $inventories = Inventory::all();
-        // $carts       = Transaction::where("user_id", Auth::user()->id)->where("status", 1)->where("type", 2)->get();
         $balance     = Balance::where("user_id", Auth::user()->id)->first();
 
         $balance_submissions = Balance::where("user_id", Auth::user()->id)->first();

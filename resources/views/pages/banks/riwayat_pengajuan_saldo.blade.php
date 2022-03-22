@@ -14,10 +14,6 @@
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-sm-flex align-items-center justify-content-between mb-4">
             <h6 class="m-0 font-weight-bold text-primary">Riwayat Pengajuan Saldo</h6>
-            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                class="fas fa-download fa-sm text-white-50"></i> 
-                Unduh Riwayat Pengajuan
-            </a>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -26,29 +22,30 @@
                         <tr>
                             <th>No.</th>
                             <th>Nama</th>
-                            <th>Tanggal</th>
                             <th>Invoice ID</th>
                             <th>Nominal</th>
                             <th>Status</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1.</td>
-                            <td>Azizah Elvia</td>
-                            <td>29/03/2022</td>
-                            <td>#BAL_40282848</td>
-                            <td>Rp 50000</td>
-                            <td>Disetujui</td>
-                        </tr>
-                        <tr>
-                            <td>2.</td>
-                            <td>Azizah Elvia</td>
-                            <td>29/03/2022</td>
-                            <td>#BAL_40282849</td>
-                            <td>Rp 1000</td>
-                            <td>Ditolak</td>
-                        </tr>
+                        @foreach ($topup_by_invoices as $topup_by_invoice)
+                            @if ($topup_by_invoice->status == 3 || $topup_by_invoice->status == 4)
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $topup_by_invoice->user->name }}</td>
+                                    <td>{{ $topup_by_invoice->invoice_id }}</td>
+                                    <td>{{ $topup_by_invoice->amount }}</td>
+                                    <td>
+                                        @if ($topup_by_invoice->status == 3)
+                                            TELAH DITOPUP
+
+                                            @elseif ($topup_by_invoice->status == 4)
+                                                TOPUP DITOLAK
+                                        @endif
+                                    </td>
+                                </tr>
+                            @endif
+                        @endforeach
                     </tbody>
                 </table>
             </div>

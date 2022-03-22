@@ -93,6 +93,9 @@ class ShoppingStudentController extends Controller
 
     public function history()
     {
-        return view('pages.students.riwayat_transaksi');
+        $shop_by_invoices = Transaction::groupBy('invoice_id')
+                            ->get();
+
+        return view('pages.students.riwayat_transaksi', compact('shop_by_invoices'));
     }
 }

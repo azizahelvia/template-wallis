@@ -1,11 +1,17 @@
 @extends('layouts.app')
 
-<?php 
+<?php
     $page = "Kasir Kantin";
 ?>
 
 @section('content')
-    <div class="container-fluid">
+<div class="container-fluid">
+
+    @if (session('status'))
+        <div class="alert alert-success" role="alert">
+            {{ session('status') }}
+        </div>
+    @endif
 
     <!-- Page Heading -->
     <h1 class="h3 mb-2 text-gray-800">Kasir Kantin</h1>
@@ -29,66 +35,81 @@
                         </tr>
                     </thead>
                     <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>Azizah Elvia</td>
-                                <td>INV_2091838</td>
-                                <td>Menunggu Konfirmasi</td>
-                                <td>
-                                    <button type="button" class="btn btn-info" data-toggle="modal" 
-                                    data-target="#detail" title="Detail">
-                                        <i class="fa-solid fa-eye"></i>
-                                    </button>
+                        @foreach ($shop_by_invoices as $shop_by_invoice)
+                            @if ($shop_by_invoice->status == 1 || $shop_by_invoice->status == 2)
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $shop_by_invoice->user->name }}</td>
+                                    <td>{{ $shop_by_invoice->invoice_id }}</td>
+                                    <td>{{ $shop_by_invoice->status == 1 ?  "BELUM BAYAR" : "SUDAH BAYAR"}}</td>
+                                    <td>
+                                        <button type="button" class="btn btn-info" data-toggle="modal"
+                                        data-target="#detail" title="Detail">
+                                            <i class="fa-solid fa-eye"></i>
+                                        </button>
 
-                                    <!-- Modal Detail -->
-                                    <div class="modal fade" id="detail" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog ">
-                                            <div class="modal-content p-3">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLabel">Pesanan #INV_493929292</h5>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <table class="table table-bordered">
-                                                        <thead>
-                                                            <tr>
-                                                                <th>No.</th>
-                                                                <th>Menu</th>
-                                                                <th>Jumlah</th>
-                                                                <th>Harga</th>
-                                                                <th>Total</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
+                                        <!-- Modal Detail -->
+                                        <div class="modal fade" id="detail" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog ">
+                                                <div class="modal-content p-3">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Pesanan {{ $shop_by_invoice->invoice_id }}</h5>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <table class="table table-bordered">
+                                                            <thead>
                                                                 <tr>
-                                                                    <td>1.</td>
-                                                                    <td>Nasi Goreng</td>
-                                                                    <td>2</td>
-                                                                    <td>Rp 15000</td>
-                                                                    <td>Rp 30000</td>
+                                                                    <th>No.</th>
+                                                                    <th>Nama</th>
+                                                                    <th>Jumlah</th>
+                                                                    <th>Harga</th>
+                                                                    <th>Total</th>
                                                                 </tr>
-                                                        </tbody>
-                                                    </table>
-    
-                                                    <p>Total Harga: Rp 30000</p>
+                                                            </thead>
+                                                            <tbody>
+                                                                <?php
+                                                                    $counter = 1;
+                                                                    $total_price = 0;
+                                                                ?>
+                                                                @foreach ($shop_submissions as $shop_submission)
+                                                                    @if ($shop_submission->invoice_id == $shop_by_invoice->invoice_id)
+                                                                        <?php
+                                                                            $total_price += $shop_submission->amount * $shop_submission->inventory->price;
+                                                                        ?>
+                                                                        <tr>
+                                                                            <td>{{ $counter++ }}</td>
+                                                                            <td>{{ $shop_submission->user->name }}</td>
+                                                                            <td>{{ $shop_submission->amount }}</td>
+                                                                            <td>{{ $shop_submission->inventory->price }}</td>
+                                                                            <td>{{ $shop_submission->amount * $shop_submission->inventory->price }}</td>
+                                                                        </tr>
+                                                                    @endif
+                                                                @endforeach
+                                                            </tbody>
+                                                        </table>
+
+                                                        <p>Total Harga: @currency($total_price)</p>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                                                    </div>
+                                                    </form>
                                                 </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                                                </div>
-                                                </form>
                                             </div>
                                         </div>
-                                    </div>
-                                    <!-- End of Modal Detail -->
-                                </td>
-                                <td>
-                                    <a href="#" class="btn btn-success mr-2" title="Terima">
-                                        <i class="fa-solid fa-square-check"></i>
-                                    </a>
-                                    <a href="#" class="btn btn-danger" title="Tolak">
-                                        <i class="fa-solid fa-square-xmark"></i>
-                                    </a>
-                                </td>
-                            </tr>
+                                        <!-- End of Modal Detail -->
+                                    </td>
+                                    <td>
+                                        <a href="{{ route('casheermerchant.approved', ["invoice_id" => $shop_by_invoice->invoice_id]) }}" class="btn btn-success mr-2" title="Terima">
+                                            <i class="fa-solid fa-square-check"></i>
+                                        </a>
+                                        <a href="{{ route('casheermerchant.rejected', ["invoice_id" => $shop_by_invoice->invoice_id]) }}" class="btn btn-danger" title="Tolak">
+                                            <i class="fa-solid fa-square-xmark"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            @endif
+                        @endforeach
                     </tbody>
                 </table>
             </div>

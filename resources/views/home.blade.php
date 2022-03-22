@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-<?php 
+<?php
     $page = "Home";
 ?>
 
@@ -26,7 +26,7 @@
                                 <div class="col mr-2">
                                     <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                         Total User</div>
-                                    <div class="h5 mb-0 font-weight-bold text-gray-800">4</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">{{ DB::table('users')->count() }}</div>
                                 </div>
                                 <div class="col-auto">
                                     <i class="fas fa-users fa-2x text-gray-300"></i>
@@ -44,7 +44,7 @@
                                 <div class="col mr-2">
                                     <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                         Total Topup Saldo</div>
-                                    <div class="h5 mb-0 font-weight-bold text-gray-800">1</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">{{ DB::table("transactions")->where("type", 1)->count() }}</div>
                                 </div>
                                 <div class="col-auto">
                                     <i class="fas fa-arrow-up fa-2x text-gray-300"></i>
@@ -65,7 +65,7 @@
                                     </div>
                                     <div class="row no-gutters align-items-center">
                                         <div class="col-auto">
-                                            <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">2</div>
+                                            <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{ DB::table("transactions")->where("type", 2)->count() }}</div>
                                         </div>
                                     </div>
                                 </div>
@@ -106,7 +106,7 @@
                                 <div class="col mr-2">
                                     <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                         Total User</div>
-                                    <div class="h5 mb-0 font-weight-bold text-gray-800">4</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">{{ DB::table('users')->count() }}</div>
                                 </div>
                                 <div class="col-auto">
                                     <i class="fas fa-users fa-2x text-gray-300"></i>
@@ -124,7 +124,7 @@
                                 <div class="col mr-2">
                                     <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
                                         Total Pengajuan Saldo</div>
-                                    <div class="h5 mb-0 font-weight-bold text-gray-800">1</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">{{ DB::table('transactions')->where("type", 1)->where("status", 1)->count() }}</div>
                                 </div>
                                 <div class="col-auto">
                                     <i class="fas fa-comments-dollar fa-2x text-gray-300"></i>
@@ -145,7 +145,7 @@
                                     </div>
                                     <div class="row no-gutters align-items-center">
                                         <div class="col-auto">
-                                            <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">2</div>
+                                            <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{ DB::table('transactions')->where("type", 1)->where("status", 3)->count() }}</div>
                                         </div>
                                     </div>
                                 </div>
@@ -166,7 +166,7 @@
                                     <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
                                         Total Saldo Ditolak
                                     </div>
-                                    <div class="h5 mb-0 font-weight-bold text-gray-800">0</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">{{ DB::table('transactions')->where("type", 1)->where("status", 4)->count() }}</div>
                                 </div>
                                 <div class="col-auto">
                                     <i class="fas fa-rectangle-xmark fa-2x text-gray-300"></i>
@@ -186,7 +186,7 @@
                                 <div class="col mr-2">
                                     <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                         Total User</div>
-                                    <div class="h5 mb-0 font-weight-bold text-gray-800">4</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">{{ DB::table('users')->count() }}</div>
                                 </div>
                                 <div class="col-auto">
                                     <i class="fas fa-users fa-2x text-gray-300"></i>
@@ -206,7 +206,7 @@
                                 <div class="col mr-2">
                                     <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                         Total Transaksi</div>
-                                    <div class="h5 mb-0 font-weight-bold text-gray-800">4</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">{{ DB::table('transactions')->count() }}</div>
                                 </div>
                                 <div class="col-auto">
                                     <i class="fas fa-receipt fa-2x text-gray-300"></i>

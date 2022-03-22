@@ -41,6 +41,7 @@ Route::middleware('auth')->group(function () {
 
     Route::prefix('data_transaksi')->group(function () {
         Route::get('/', [DataTransactionController::class, 'index'])->name('datatransaction.index');
+        Route::get('/delete_transaction/{id}', [DataTransactionController::class, 'destroy'])->name('datatransaction.delete');
     });
 
     Route::prefix('riwayat_transaksi')->group(function () {
@@ -58,6 +59,9 @@ Route::middleware('auth')->group(function () {
     // Kantin
     Route::prefix('kasir_kantin')->group(function() {
         Route::get('/', [CasheerMerchantController::class, 'index'])->name('casheermerchant.index');
+        Route::get('/approved_shop/{invoice_id}', [CasheerMerchantController::class, 'approved'])->name('casheermerchant.approved');
+        Route::get('/rejected_shop/{invoice_id}', [CasheerMerchantController::class, 'rejected'])->name('casheermerchant.rejected');
+        Route::get('/history_shop', [CasheerMerchantController::class, 'history'])->name('casheermerchant.history');
     });
     Route::prefix('data_barang')->group(function() {
         Route::get('/', [EntryInventoryController::class, 'index'])->name('entryinventory.index');

@@ -70,10 +70,10 @@
             <li class="nav-item {{ $page == "Data Transaksi" ? "active" : "" }}">
                 <a class="nav-link" href="{{ route('datatransaction.index') }}">
                     <i class="fas fa-fw fa-file-invoice"></i>
-                    <span>Data Transaksi</span></a>
+                    <span>Data Belanja</span></a>
             </li>
 
-            <!-- Menu Data Transaksi -->
+            <!-- Menu Riwayat Transaksi -->
             <li class="nav-item {{ $page == "Riwayat Transaksi" ? "active" : "" }}">
                 <a class="nav-link" href="{{ route('transactionhistory.index') }}">
                     <i class="fas fa-fw fa-clock-rotate-left"></i>
@@ -82,47 +82,52 @@
         @endif
 
         @if (Auth::user()->role_id === 2)
-        <li class="nav-item {{ $page == "Pengajuan Saldo" ? "active" : "" }}">
-            <a class="nav-link" href="{{ route('topupbalance.index') }}">
-                <i class="fa-solid fa-comments-dollar"></i>
-                <span>Pengajuan Saldo</span></a>
-        </li>
-        <li class="nav-item {{ $page == "Riwayat Pengajuan Saldo" ? "active" : "" }}">
-            <a class="nav-link" href="{{ route('topupbalance.history') }}">
-                <i class="fa-solid fa-receipt"></i>
-                <span>Riwayat Pengajuan Saldo</span></a>
-        </li>
+            <li class="nav-item {{ $page == "Pengajuan Saldo" ? "active" : "" }}">
+                <a class="nav-link" href="{{ route('topupbalance.index') }}">
+                    <i class="fa-solid fa-comments-dollar"></i>
+                    <span>Pengajuan Saldo</span></a>
+            </li>
+            <li class="nav-item {{ $page == "Riwayat Pengajuan Saldo" ? "active" : "" }}">
+                <a class="nav-link" href="{{ route('topupbalance.history') }}">
+                    <i class="fa-solid fa-receipt"></i>
+                    <span>Riwayat Pengajuan Saldo</span></a>
+            </li>
         @endif
 
         @if (Auth::user()->role_id === 3)
-        <li class="nav-item {{ $page == "Kasir Kantin" ? "active" : "" }}">
-            <a class="nav-link" href="{{ route('casheermerchant.index') }}">
-                <i class="fa-solid fa-cash-register"></i>
-                <span>Kasir</span></a>
-        </li>
-        <li class="nav-item {{ $page == "Data Barang" ? "active" : "" }}">
-            <a class="nav-link" href="{{ route('entryinventory.index') }}">
-                <i class="fa-solid fa-box"></i>
-                <span>Data Barang</span></a>
-        </li>
+            <li class="nav-item {{ $page == "Kasir Kantin" ? "active" : "" }}">
+                <a class="nav-link" href="{{ route('casheermerchant.index') }}">
+                    <i class="fa-solid fa-cash-register"></i>
+                    <span>Kasir</span></a>
+            </li>
+            <li class="nav-item {{ $page == "Data Barang" ? "active" : "" }}">
+                <a class="nav-link" href="{{ route('entryinventory.index') }}">
+                    <i class="fa-solid fa-box"></i>
+                    <span>Data Barang</span></a>
+            </li>
+            <li class="nav-item {{ $page == "Riwayat Transaksi kantin" ? "active" : "" }}">
+                <a class="nav-link" href="{{ route('casheermerchant.history') }}">
+                    <i class="fa-solid fa-clock-rotate-left"></i>
+                    <span>Riwayat Transaksi</span></a>
+            </li>
         @endif
 
         @if (Auth::user()->role_id === 4)
-        <li class="nav-item {{ $page == "Topup Saldo" ? "active" : "" }}">
-            <a class="nav-link" href="{{ route('topupsaldo.index') }}">
-                <i class="fa-solid fa-arrow-up-from-bracket"></i>
-                <span>Topup Saldo</span></a>
-        </li>
-        <li class="nav-item {{ $page == "Belanja" ? "active" : "" }}">
-            <a class="nav-link" href="{{ route('belanjasiswa.index') }}">
-                <i class="fa-solid fa-cart-shopping"></i>
-                <span>Belanja</span></a>
-        </li>
-        <li class="nav-item {{ $page == "Riwayat Transaksi Siswa" ? "active" : "" }}">
-            <a class="nav-link" href="{{ route('riwayatsiswa.index') }}">
-                <i class="fa-solid fa-clock-rotate-left"></i>
-                <span>Riwayat Transaksi</span></a>
-        </li>
+            <li class="nav-item {{ $page == "Topup Saldo" ? "active" : "" }}">
+                <a class="nav-link" href="{{ route('topupsaldo.index') }}">
+                    <i class="fa-solid fa-arrow-up-from-bracket"></i>
+                    <span>Topup Saldo</span></a>
+            </li>
+            <li class="nav-item {{ $page == "Belanja" ? "active" : "" }}">
+                <a class="nav-link" href="{{ route('belanjasiswa.index') }}">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span>Belanja</span></a>
+            </li>
+            <li class="nav-item {{ $page == "Riwayat Transaksi Siswa" ? "active" : "" }}">
+                <a class="nav-link" href="{{ route('riwayatsiswa.index') }}">
+                    <i class="fa-solid fa-clock-rotate-left"></i>
+                    <span>Riwayat Transaksi</span></a>
+            </li>
         @endif
     </ul>
     <!-- End of Sidebar -->
@@ -139,10 +144,10 @@
                 <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
                     <i class="fa fa-bars"></i>
                 </button>
-            
+
                 <!-- Topbar Navbar -->
                 <ul class="navbar-nav ml-auto">
-            
+
                     <!-- Nav Item - User Information -->
                     <li class="nav-item dropdown no-arrow">
                         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
@@ -168,7 +173,7 @@
                             </form>
                         </div>
                     </li>
-            
+
                 </ul>
             </nav>
             <!-- End of Topbar -->

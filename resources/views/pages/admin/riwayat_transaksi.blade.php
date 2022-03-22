@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-<?php 
+<?php
     $page = "Riwayat Transaksi";
 ?>
 
@@ -14,10 +14,6 @@
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-sm-flex align-items-center justify-content-between mb-4">
             <h6 class="m-0 font-weight-bold text-primary">Riwayat Transaksi</h6>
-            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                class="fas fa-download fa-sm text-white-50"></i> 
-                Unduh Laporan
-            </a>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -26,19 +22,21 @@
                         <tr>
                             <th>No.</th>
                             <th>Nama</th>
-                            <th>Tanggal</th>
                             <th>Invoice ID</th>
                             <th>Jenis Transaksi</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1.</td>
-                            <td>Azizah Elvia</td>
-                            <td>29/03/2022</td>
-                            <td>#INV_40282848</td>
-                            <td>BELANJA</td>
-                        </tr>
+                        @foreach ($transaction_by_invoices as $transaction_by_invoice)
+                            @if ($transaction_by_invoice->type == 1 || $transaction_by_invoice->type == 2)
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $transaction_by_invoice->user->name }}</td>
+                                    <td>{{ $transaction_by_invoice->invoice_id }}</td>
+                                    <td>{{ $transaction_by_invoice->type == 1 ? "TOPUP" : "BELANJA" }}</td>
+                                </tr>
+                            @endif
+                        @endforeach
                     </tbody>
                 </table>
             </div>

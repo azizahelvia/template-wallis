@@ -31,7 +31,11 @@ class TopupBalanceController extends Controller
      */
     public function history()
     {
-        return view('pages.banks.riwayat_pengajuan_saldo');
+        $topup_by_invoices = Transaction::where("type", 1)
+                            ->groupBy('invoice_id')
+                            ->get();
+
+        return view('pages.banks.riwayat_pengajuan_saldo', compact('topup_by_invoices'));
     }
 
     public function approved($transaction_id)
@@ -57,9 +61,9 @@ class TopupBalanceController extends Controller
 
         $transaction->delete();
 
-        // $transaction->update([
-        //     "status" => 4
-        // ]);
+        $transaction->update([
+            "status" => 4
+        ]);
 
         return redirect()->back()->with("status", "Menolak Topup Saldo!");
     }
