@@ -10,6 +10,17 @@ use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
+    public function getUsers()
+    {
+        $users = User::all();
+
+        return response()->json([
+            "status"    => 200,
+            "data"      => $users,
+            "message"   => "Berhasil Mengambil Data Users!"
+        ]);
+    }
+
     public function register(Request $request)
     {
         $validated = $request->validate([
